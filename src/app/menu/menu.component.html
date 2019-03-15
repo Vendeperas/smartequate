@@ -9,28 +9,32 @@
     </span>
   </h1>
   <nav id="nav_menu">
-    <ul>
-      <li>
-          <a>
-            Inici
-            <div class="selected-bar"></div>
-          </a>  
-      </li>
-      <li>
-          <a>
-            Cercar
-          </a>  
-      </li>
-      <li>
-        <a>
-          Comparar
-        </a>  
-      </li>
-      <li>
-        <a>
-        Informació
-        </a>  
-    </li>
+    <ul> 
+      <li id="user-li">
+          <div id="user-div"><button class="user-button" mat-stroked-button color="primary">Iniciar sessió</button></div> 
+        </li>
+        <li>
+            <a>
+            Informació
+            </a> 
+          </li>
+        <li>
+            <a>
+              Comparar
+            </a>  
+          </li>
+        <li>
+            <a title="Cercar telèfons" routerLink="search">
+              <div>Cercar</div>
+              <div class="selected-bar" [class.activated]="currentUrl == '/search'"></div>
+            </a>   
+        </li>
+        <li>
+            <a title="Pàgina rincipal" routerLink="home" >
+              <div>Inici</div>
+              <div class="selected-bar" [class.activated]="currentUrl == '/home'"></div>
+            </a>  
+        </li>
     </ul>
   </nav>
 </div>

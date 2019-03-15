@@ -1,20 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit  } from '@angular/core';
 import * as anime from 'animejs';
 import * as $ from 'jquery';
+import { Router, NavigationEnd } from '@angular/router';
 declare var require: any;
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, AfterViewInit {
 
   logo = require('./logo.png');
   line = require('./line.png');
   case = require('./case.png');
-  constructor() { }
+  currentUrl: string;
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.router.events.subscribe(data => {
+     if (data instanceof NavigationEnd) {
+      this.currentUrl = window.location.pathname;
+     }
+    });
+  }
+
+  ngAfterViewInit() {
     $('.ml11 .letters').each(function() {
       $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, `<span class='letter'>$&</span>`));
     });
@@ -49,7 +59,7 @@ export class MenuComponent implements OnInit {
         opacity: [0.5, 1],
         easing: 'easeOutExpo',
         duration: 700
-      })
+      });
   }
 
 }
