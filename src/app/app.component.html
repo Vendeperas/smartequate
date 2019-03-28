@@ -1,3 +1,28 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-menu></app-menu>
-<router-outlet></router-outlet>
+<button id="side-nav-button" mat-icon-button (click)="toggleRightSidenav()"><mat-icon>menu</mat-icon></button>
+<mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
+        <nav>
+            <ul>
+                <li routerLink="home" (click)="closeSideNav()">
+                    <div class="selected-bar" [class.activated]="currentUrl == '/home'"></div>
+                    Inici 
+                </li>
+                <li routerLink="search" (click)="closeSideNav()">
+                    <div class="selected-bar" [class.activated]="currentUrl == '/search'"></div>
+                    Cercar
+                </li>
+                <li>
+                    Comparar
+                </li>
+                <li>
+                    Informació
+                </li>
+            </ul>
+        </nav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-menu></app-menu>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

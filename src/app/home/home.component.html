@@ -1,3 +1,4 @@
+
 <div id="presentation-div">
   <div id="text-left">
     <div id="primary-text">El millor comparador<br>de telèfons mòbils<br>que hi ha online</div>
@@ -20,5 +21,58 @@
 </div>
 
 <div id="newest-phones">
-  <h2>Últimes novetats</h2>
+  <h2 style="margin-bottom: 10px;">Últimes novetats</h2>
+  <div class="phones-text">
+    Aqui pots trobar els últims telèfons mòbils que han sortit al mercat
+
+  </div>
+  <div class="phone-box-wrapper">
+    <div (mouseenter)="enter($event)" (mouseleave)="leave($event)"  class="phone-box">
+        <div class="red-box"><img id="phone_img" [src]="img_phone"></div>
+        <div class="phone-name">
+         <strong>Phone Name</strong>
+        </div>
+        <div class="phone-description">
+          <h4>Phone Name</h4>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum itaque aspernatur placeat, corrupti nihil corporis omnis iusto repellendus dolorum veniam</p>
+        </div>
+    </div>
+    <div class="phone-box">
+      
+    </div>
+    <div class="phone-box">
+      
+    </div>
+    <div class="phone-box">
+      
+    </div>
+    <div class="phone-box">
+      
+    </div>
+  </div>
+</div>
+
+<div id="voted-phones">
+    <h2 style="margin-bottom: 10px;">Els més votats</h2>
+    <div class="phones-text">
+      Aqui pots trobar els telèfons mòbils més ben valorats
+  
+    </div>
+    <div class="phone-box-wrapper">
+      <div class="phone-box">
+       
+      </div>
+      <div class="phone-box">
+        
+      </div>
+      <div class="phone-box">
+        
+      </div>
+      <div class="phone-box">
+        
+      </div>
+      <div class="phone-box">
+        
+      </div>
+    </div>
 </div>
