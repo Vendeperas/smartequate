@@ -28,9 +28,13 @@
             ],
             "styles": [
               "src/material-styles.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/datatablesStyles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "src/datatablesJquery.js"
+            ]
           },
           "configurations": {
             "production": {

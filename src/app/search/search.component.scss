@@ -1,0 +1,61 @@
+.phones-text {
+    color:rgb(163, 163, 163);
+    font-weight: bold;
+}
+
+#content-wrapper{
+    text-align: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+mat-slider {
+    width: 300px;
+  }
+
+
+
+#table-card{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.form-part{
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+}
+
+.footerInput{
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style:1px solid rgb(201, 201, 201);
+    transition: none;
+    width: 100% ;
+}
+.footerInput:focus{
+    border-bottom-color: rgb(29, 108, 199);
+    outline:none;
+}
+
+.buttons-td{
+    min-width: 150px;
+}
+
+
+
+.accions-button{
+   height: 30px;
+   line-height: 10px;
+}
+
+.form-part{
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+}
+.form-input-search{
+    width: 250px;
+}

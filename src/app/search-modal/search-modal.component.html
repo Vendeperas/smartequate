@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Selecciona un telèfon</h2>
+<div mat-dialog-content>
+  <mat-card>
+    <table datatable [dtOptions]="dtOptions[0]" [dtTrigger]="dtTrigger[0]" class="row-border hover cell-border">
+      <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Empresa</th>
+            <th>CPU</th>
+            <th>Bateria</th>
+            <th>Accions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let phone of phones">
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}">{{phone.name}}</td>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}">{{phone.brand}}</td>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}">{{phone.attributes.cpu}}</td>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}">{{phone.attributes.battery}} mah</td>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}" class="buttons-td" style="text-align: center;">
+              <button [disabled]="phone.id == phoneId" class="accions-button" matTooltipPosition="right" mat-flat-button color="primary" (click)="selectPhone(phone)">Seleccionar</button>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="phones?.length == 0">
+          <tr>
+            <td colspan="4" class="no-data-available">No s'han trobat registres</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th><input class="footerInput" type="text" placeholder="Buscar nom"/></th>
+            <th><input class="footerInput" type="text" placeholder="Buscar empresa"/></th>
+            <th><input class="footerInput" type="text" placeholder="Buscar cpu"/></th>
+            <th><input class="footerInput" type="text" placeholder="Buscar bateria"/></th>
+            <th></th>
+          </tr>
+        </tfoot>
+    </table>
+  </mat-card>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" cdkFocusInitial>Tancar</button>
+</div>

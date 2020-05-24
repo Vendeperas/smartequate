@@ -29,7 +29,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    //if (this.getWidth() > 1000) {
       $('.ml11 .letters').each(function() {
         $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, `<span class='letter'>$&</span>`));
       });
@@ -64,7 +63,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
           easing: 'easeOutExpo',
           duration: 700
         });
-    //}
   }
 
   getWidth() {

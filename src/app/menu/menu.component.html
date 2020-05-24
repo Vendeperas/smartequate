@@ -21,9 +21,10 @@
             </a> 
           </li>
         <li>
-            <a>
-              Comparar
-            </a>  
+          <a title="Comparar telefons" routerLink="compare">
+            <div>Comparar</div>
+            <div class="selected-bar" [class.activated]="currentUrl == '/compare'"></div>
+          </a> 
           </li>
         <li>
             <a title="Cercar telèfons" routerLink="search">

@@ -1,0 +1,154 @@
+<div id="content-wrapper">
+
+  <h2 style="margin-bottom: 10px;">Comparació de telèfons</h2>
+  <div class="phones-text">
+    Aqui pots comparar telèfons i veure quin és el més adequat per tu!
+  </div>
+
+  <mat-card id="compare-content" class="mat-elevation-z4">
+    <div class="compared-phone">
+      <div *ngIf="flagSelected1" class="phone-box" (click)="openSearch1()">
+        <div >
+          <br><br><br><br><br>
+          <mat-icon style="font-size: 52px;width: 50px;">add</mat-icon><br>
+          <p>Fes clic per <br>poder seleccionar<br> un telèfon</p>
+        </div>  
+      </div>
+     
+      <div *ngIf="!flagSelected1" class="selectedPhone mat-elevation-z4 ">
+        <div><img class="phone_img" [src]="img_phone"></div>
+        <div><strong>{{phone1?.name}}</strong></div>
+        <div class="points">{{phone1?.points?.totalPoints.toFixed(0)}} pts</div>
+      </div>
+    </div>
+    <div *ngIf="!showCompare" id="compare-button"><button [disabled]="flagSelected1 || flagSelected2" mat-flat-button color="primary" (click)="compare()">Comparar</button></div>
+    <div *ngIf="showCompare" id="compare-button"><button mat-flat-button color="primary" (click)="cancel()">Tornar</button></div>
+    <div class="compared-phone">
+      <div *ngIf="flagSelected2" class="phone-box" (click)="openSearch2()">
+        <div >
+          <br><br><br><br><br>
+          <mat-icon style="font-size: 52px;width: 50px;">add</mat-icon><br>
+          <p>Fes clic per <br>poder seleccionar<br> un telèfon</p>
+        </div>  
+      </div>
+     
+      <div *ngIf="!flagSelected2" class="selectedPhone mat-elevation-z4 ">
+        <div><img class="phone_img" [src]="img_phone"></div>
+        <div><strong>{{phone2?.name}}</strong></div>
+        <div class="points">{{phone2?.points?.totalPoints.toFixed(0)}} pts</div>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card *ngIf="!flagSelected1 && !flagSelected2" id="compare-card" [@openClose]="showCompare ? 'open' : 'closed'" class="mat-elevation-z4">
+      <table style="width: 100%" datatable [dtOptions]="dtOptions[0]" [dtTrigger]="dtTrigger[0]" class="row-border hover cell-border">
+        <thead>
+            <tr>
+              <th>{{phone1?.name}}</th>
+              <th>{{phone2?.name}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.heightPoints < phone2.points.heightPoints , 'green' : phone1.points.heightPoints >= phone2.points.heightPoints}"><strong style="color:grey">Gruix:</strong> {{phone1?.attributes?.size?.height}} mm ({{phone1.points.heightPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.heightPoints > phone2.points.heightPoints , 'green' : phone1.points.heightPoints < phone2.points.heightPoints}"><strong style="color:grey">Gruix:</strong> {{phone2?.attributes?.size?.height}} mm ({{phone2.points.heightPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.weightPoints < phone2.points.weightPoints , 'green' : phone1.points.weightPoints >= phone2.points.weightPoints}"><strong style="color:grey">Pes:</strong> {{phone1?.attributes?.weight}} gr ({{phone1.points.weightPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.weightPoints > phone2.points.weightPoints , 'green' : phone1.points.weightPoints < phone2.points.weightPoints}"><strong style="color:grey">Pes:</strong> {{phone2?.attributes?.weight}} gr ({{phone2.points.weightPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.simTrayPoints < phone2.points.simTrayPoints , 'green' : phone1.points.simTrayPoints >= phone2.points.simTrayPoints}"><strong style="color:grey">Ranures sim:</strong> {{phone1?.attributes?.sim_tray}} ut ({{phone1.points.simTrayPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.simTrayPoints > phone2.points.simTrayPoints , 'green' : phone1.points.simTrayPoints <= phone2.points.simTrayPoints}"><strong style="color:grey">Ranures sim:</strong> {{phone2?.attributes?.sim_tray}} ut ({{phone2.points.simTrayPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.cpuPoints < phone2.points.cpuPoints , 'green' : phone1.points.cpuPoints >= phone2.points.cpuPoints}"><strong style="color:grey">CPU:</strong> {{phone1?.attributes?.cpu}} ({{phone1.points.cpuPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.cpuPoints > phone2.points.cpuPoints , 'green' : phone1.points.cpuPoints <= phone2.points.cpuPoints}"><strong style="color:grey">CPU:</strong> {{phone2?.attributes?.cpu}} ({{phone2.points.cpuPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.displaySizePoints < phone2.points.displaySizePoints , 'green' : phone1.points.displaySizePoints >= phone2.points.displaySizePoints}"><strong style="color:grey">Pantalla:</strong> {{phone1?.attributes?.display_size}} polzades ({{phone1.points.displaySizePoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.displaySizePoints > phone2.points.displaySizePoints , 'green' : phone1.points.displaySizePoints <= phone2.points.displaySizePoints}"><strong style="color:grey">Pantalla:</strong> {{phone2?.attributes?.display_size}} polzades ({{phone2.points.displaySizePoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.cardSlotPoints < phone2.points.cardSlotPoints , 'green' : phone1.points.cardSlotPoints >= phone2.points.cardSlotPoints}"><strong style="color:grey">Ranures targeta memoria:</strong> {{phone1?.attributes?.card_slot}} ut ({{phone1.points.cardSlotPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.cardSlotPoints > phone2.points.cardSlotPoints , 'green' : phone1.points.cardSlotPoints <= phone2.points.cardSlotPoints}"><strong style="color:grey">Ranures targeta memoria:</strong> {{phone2?.attributes?.card_slot}} ut ({{phone2.points.cardSlotPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.cameraAPoints < phone2.points.cameraAPoints , 'green' : phone1.points.cameraAPoints >= phone2.points.cameraAPoints}"><strong style="color:grey">Càmara principal:</strong> {{phone1?.attributes?.camera_a}} mpx ({{phone1.points.cameraAPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.cameraAPoints > phone2.points.cameraAPoints , 'green' : phone1.points.cameraAPoints <= phone2.points.cameraAPoints}"><strong style="color:grey">Càmara principal:</strong> {{phone2?.attributes?.camera_a}} mpx ({{phone2.points.cameraAPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.cameraBPoints < phone2.points.cameraBPoints , 'green' : phone1.points.cameraBPoints >= phone2.points.cameraBPoints}"><strong style="color:grey">Càmara secundària:</strong> {{phone1?.attributes?.camera_b}} mpx ({{phone1.points.cameraBPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.cameraBPoints > phone2.points.cameraBPoints , 'green' : phone1.points.cameraBPoints <= phone2.points.cameraBPoints}"><strong style="color:grey">Càmara secundària:</strong> {{phone2?.attributes?.camera_b}} mpx ({{phone2.points.cameraBPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.jackPoints < phone2.points.jackPoints , 'green' : phone1.points.jackPoints >= phone2.points.jackPoints}"><strong style="color:grey">Entrada jack:</strong> {{phone1?.attributes?.jack ? 'SI' : 'NO'}} ({{phone1.points.jackPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.jackPoints > phone2.points.jackPoints , 'green' : phone1.points.jackPoints <= phone2.points.jackPoints}"><strong style="color:grey">Entrada jack:</strong> {{phone2?.attributes?.jack ? 'SI' : 'NO'}} ({{phone2.points.jackPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.displayTypePoints < phone2.points.displayTypePoints , 'green' : phone1.points.displayTypePoints >= phone2.points.displayTypePoints}"><strong style="color:grey">Tipus pantalla:</strong> {{phone1?.attributes?.display_type}} ({{phone1.points.displayTypePoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.displayTypePoints > phone2.points.displayTypePoints , 'green' : phone1.points.displayTypePoints <= phone2.points.displayTypePoints}"><strong style="color:grey">Tipus pantalla:</strong> {{phone2?.attributes?.display_type}} ({{phone2.points.displayTypePoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.romPoints < phone2.points.romPoints , 'green' : phone1.points.romPoints >= phone2.points.romPoints}"><strong style="color:grey">ROM:</strong> {{phone1?.attributes?.rom}} gb ({{phone1.points.romPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.romPoints > phone2.points.romPoints , 'green' : phone1.points.romPoints <= phone2.points.romPoints}"><strong style="color:grey">ROM:</strong> {{phone2?.attributes?.rom}} gb ({{phone2.points.romPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.ramPoints < phone2.points.ramPoints , 'green' : phone1.points.ramPoints >= phone2.points.ramPoints}"><strong style="color:grey">RAM:</strong> {{phone1?.attributes?.ram}} gb ({{phone1.points.ramPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.ramPoints > phone2.points.ramPoints , 'green' : phone1.points.ramPoints <= phone2.points.ramPoints}"><strong style="color:grey">RAM:</strong> {{phone2?.attributes?.ram}} gb ({{phone2.points.ramPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.resolutionPoints < phone2.points.resolutionPoints , 'green' : phone1.points.resolutionPoints >= phone2.points.resolutionPoints}"><strong style="color:grey">Resolució pantalla:</strong> {{phone1?.attributes?.resolution.width}} x {{phone1?.attributes?.resolution.height}} ({{phone1.points.resolutionPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.resolutionPoints > phone2.points.resolutionPoints , 'green' : phone1.points.resolutionPoints <= phone2.points.resolutionPoints}"><strong style="color:grey">Resolució pantalla:</strong> {{phone2?.attributes?.resolution.width}} x {{phone2?.attributes?.resolution.height}} ({{phone2.points.resolutionPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.batteryPoints < phone2.points.batteryPoints , 'green' : phone1.points.batteryPoints >= phone2.points.batteryPoints}"><strong style="color:grey">Bateria:</strong> {{phone1?.attributes?.battery}} mah ({{phone1.points.batteryPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.batteryPoints > phone2.points.batteryPoints , 'green' : phone1.points.batteryPoints <= phone2.points.batteryPoints}"><strong style="color:grey">Bateria:</strong> {{phone2?.attributes?.battery}} mah ({{phone2.points.batteryPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsGyroscopePoints < phone2.points.sensorsGyroscopePoints , 'green' : phone1.points.sensorsGyroscopePoints >= phone2.points.sensorsGyroscopePoints}"><strong style="color:grey">Giroscopi:</strong> {{phone1?.attributes?.sensors.gyroscope ? 'SI' : 'NO'}} ({{phone1.points.sensorsGyroscopePoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsGyroscopePoints > phone2.points.sensorsGyroscopePoints , 'green' : phone1.points.sensorsGyroscopePoints <= phone2.points.sensorsGyroscopePoints}"><strong style="color:grey">Giroscopi:</strong> {{phone2?.attributes?.sensors.gyroscope ? 'SI' : 'NO'}} ({{phone2.points.sensorsGyroscopePoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsMagnetometerPoints < phone2.points.sensorsMagnetometerPoints , 'green' : phone1.points.sensorsMagnetometerPoints >= phone2.points.sensorsMagnetometerPoints}"><strong style="color:grey">Magnetòmetre:</strong> {{phone1?.attributes?.sensors.magnetometer ? 'SI' : 'NO'}} ({{phone1.points.sensorsMagnetometerPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsMagnetometerPoints > phone2.points.sensorsMagnetometerPoints , 'green' : phone1.points.sensorsMagnetometerPoints <= phone2.points.sensorsMagnetometerPoints}"><strong style="color:grey">Magnetòmetre:</strong> {{phone2?.attributes?.sensors.magnetometer ? 'SI' : 'NO'}} ({{phone2.points.sensorsMagnetometerPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsGpsPoints < phone2.points.sensorsGpsPoints , 'green' : phone1.points.sensorsGpsPoints >= phone2.points.sensorsGpsPoints}"><strong style="color:grey">GPS:</strong> {{phone1?.attributes?.sensors.gps ? 'SI' : 'NO'}} ({{phone1.points.sensorsGpsPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsGpsPoints > phone2.points.sensorsGpsPoints , 'green' : phone1.points.sensorsGpsPoints <= phone2.points.sensorsGpsPoints}"><strong style="color:grey">GPS:</strong> {{phone2?.attributes?.sensors.gps ? 'SI' : 'NO'}} ({{phone2.points.sensorsGpsPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsProximityPoints < phone2.points.sensorsProximityPoints , 'green' : phone1.points.sensorsProximityPoints >= phone2.points.sensorsProximityPoints}"><strong style="color:grey">Sensor proximitat:</strong> {{phone1?.attributes?.sensors.proximity ? 'SI' : 'NO'}} ({{phone1.points.sensorsProximityPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsProximityPoints > phone2.points.sensorsProximityPoints , 'green' : phone1.points.sensorsProximityPoints <= phone2.points.sensorsProximityPoints}"><strong style="color:grey">Sensor proximitat:</strong> {{phone2?.attributes?.sensors.proximity ? 'SI' : 'NO'}} ({{phone2.points.sensorsProximityPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsLightPoints < phone2.points.sensorsLightPoints , 'green' : phone1.points.sensorsLightPoints >= phone2.points.sensorsLightPoints}"><strong style="color:grey">Sensor llum:</strong> {{phone1?.attributes?.sensors.light ? 'SI' : 'NO'}} ({{phone1.points.sensorsLightPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsLightPoints > phone2.points.sensorsLightPoints , 'green' : phone1.points.sensorsLightPoints <= phone2.points.sensorsLightPoints}"><strong style="color:grey">Sensor llum:</strong> {{phone2?.attributes?.sensors.light ? 'SI' : 'NO'}} ({{phone2.points.sensorsLightPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsFingerprintPoints < phone2.points.sensorsFingerprintPoints , 'green' : phone1.points.sensorsFingerprintPoints >= phone2.points.sensorsFingerprintPoints}"><strong style="color:grey">Emprempta digital:</strong> {{phone1?.attributes?.sensors.fingerprint ? 'SI' : 'NO'}} ({{phone1.points.sensorsFingerprintPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsFingerprintPoints > phone2.points.sensorsFingerprintPoints , 'green' : phone1.points.sensorsFingerprintPoints <= phone2.points.sensorsFingerprintPoints}"><strong style="color:grey">Emprempta digital:</strong> {{phone2?.attributes?.sensors.fingerprint ? 'SI' : 'NO'}} ({{phone2.points.sensorsFingerprintPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsBarometerPoints < phone2.points.sensorsBarometerPoints , 'green' : phone1.points.sensorsBarometerPoints >= phone2.points.sensorsBarometerPoints}"><strong style="color:grey">Baròmetre:</strong> {{phone1?.attributes?.sensors.barometer ? 'SI' : 'NO'}} ({{phone1.points.sensorsBarometerPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsBarometerPoints > phone2.points.sensorsBarometerPoints , 'green' : phone1.points.sensorsBarometerPoints <= phone2.points.sensorsBarometerPoints}"><strong style="color:grey">Baròmetre:</strong> {{phone2?.attributes?.sensors.barometer ? 'SI' : 'NO'}} ({{phone2.points.sensorsBarometerPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsThermometerPoints < phone2.points.sensorsThermometerPoints , 'green' : phone1.points.sensorsThermometerPoints >= phone2.points.sensorsThermometerPoints}"><strong style="color:grey">Termòmetre:</strong> {{phone1?.attributes?.sensors.thermometer ? 'SI' : 'NO'}} ({{phone1.points.sensorsThermometerPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsThermometerPoints > phone2.points.sensorsThermometerPoints , 'green' : phone1.points.sensorsThermometerPoints <= phone2.points.sensorsThermometerPoints}"><strong style="color:grey">Termòmetre:</strong> {{phone2?.attributes?.sensors.thermometer ? 'SI' : 'NO'}} ({{phone2.points.sensorsThermometerPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.sensorsAccelerometerPoints < phone2.points.sensorsAccelerometerPoints , 'green' : phone1.points.sensorsAccelerometerPoints >= phone2.points.sensorsAccelerometerPoints}"><strong style="color:grey">Acceleròmetre:</strong> {{phone1?.attributes?.sensors.accelerometer ? 'SI' : 'NO'}} ({{phone1.points.sensorsAccelerometerPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.sensorsAccelerometerPoints > phone2.points.sensorsAccelerometerPoints , 'green' : phone1.points.sensorsAccelerometerPoints <= phone2.points.sensorsAccelerometerPoints}"><strong style="color:grey">Acceleròmetre:</strong> {{phone2?.attributes?.sensors.accelerometer ? 'SI' : 'NO'}} ({{phone2.points.sensorsAccelerometerPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.portPoints < phone2.points.portPoints , 'green' : phone1.points.portPoints >= phone2.points.portPoints}"><strong style="color:grey">Tipus d'entrada principal:</strong> {{phone1?.attributes?.port}} ({{phone1.points.portPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.portPoints > phone2.points.portPoints , 'green' : phone1.points.portPoints <= phone2.points.portPoints}"><strong style="color:grey">Tipus d'entrada principal:</strong> {{phone2?.attributes?.port}} ({{phone2.points.portPoints.toFixed(0)}} pts)</td>
+            </tr>
+            <tr>
+              <td [ngClass]="{'red' : phone1.points.multitouchPoints < phone2.points.multitouchPoints , 'green' : phone1.points.multitouchPoints >= phone2.points.multitouchPoints}"><strong style="color:grey">Multitouch:</strong> {{phone1?.attributes?.multitouch ? 'SI' : 'NO'}} ({{phone1.points.multitouchPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.multitouchPoints > phone2.points.multitouchPoints , 'green' : phone1.points.multitouchPoints <= phone2.points.multitouchPoints}"><strong style="color:grey">Multitouch:</strong> {{phone2?.attributes?.multitouch ? 'SI' : 'NO'}} ({{phone2.points.multitouchPoints.toFixed(0)}} pts)</td>
+            </tr>
+          </tbody>
+      </table>
+  </mat-card>
+</div>

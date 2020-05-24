@@ -3,6 +3,7 @@ import { MatSidenav } from '@angular/material';
 import { SidenavService } from './sidenav-service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router, NavigationEnd } from '@angular/router';
+import { NgProgressComponent } from '@ngx-progressbar/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,6 +13,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent implements OnDestroy, OnInit {
 
   @ViewChild('snav') public sidenav: MatSidenav;
+  @ViewChild(NgProgressComponent) progressBar: NgProgressComponent;
 
   title = 'smartequate-app';
   currentUrl = '';
@@ -33,11 +35,25 @@ export class AppComponent implements OnDestroy, OnInit {
      this.currentUrl = window.location.pathname;
     }
    });
+
  }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   closeSideNav() {
     this.sidenav.close();
+  }
+
+  progressStart(bar: boolean) {
+    if (bar) {
+      this.progressBar.start();
+    }
+    document.getElementById('loadingDiv').style.display = 'block';
+  }
+  progressFinish(bar: boolean) {
+    if (bar) {
+      this.progressBar.complete();
+    }
+    document.getElementById('loadingDiv').style.display = 'none';
   }
 }

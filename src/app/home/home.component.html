@@ -4,75 +4,66 @@
     <div id="primary-text">El millor comparador<br>de telèfons mòbils<br>que hi ha online</div>
     <div id="secondary-text">Comença a utilitzar ja la millor<br>eina per comparar els telèfons<br>que més t'agradin</div>
     <div id="presentation-buttons">
-        <button class="presentation-button" color="accent" mat-raised-button>Cercar telèfons</button>&nbsp;&nbsp;
-        <button class="presentation-button" color="accent" mat-raised-button>Comparar telèfons</button>
+        <button class="presentation-button" color="accent" mat-raised-button routerLink="/search">Cercar telèfons</button>&nbsp;&nbsp;
+        <button class="presentation-button" color="accent" mat-raised-button routerLink="/compare">Comparar telèfons</button>
     </div>
   </div>
   <div id="text-right">
     <div id="img-home-div"><img id="img-home" [src]="img_home"></div>
-    <!--<div id="points-wrapper">
-      <div class="points" id="points1">278998p</div>
-      <div class="points" id="points2">934852p</div>
-      <div class="points" id="points3">892348p</div>
-    </div> -->
   </div>
     <div id="presentation-triangle-left"></div>
   <div id="presentation-triangle-right"></div>
 </div>
-
-<div id="newest-phones">
-  <h2 style="margin-bottom: 10px;">Últimes novetats</h2>
+<br><br><br>
+<div [@openClose]="showPhones1 ? 'open' : 'closed'" id="newest-phones">
+  <h2 style="margin-bottom: 10px;">Més alta puntuació</h2>
   <div class="phones-text">
-    Aqui pots trobar els últims telèfons mòbils que han sortit al mercat
+    Aqui pots trobar els telèfons mòbils que destaquen per la seva puntuació!
 
   </div>
-  <div class="phone-box-wrapper">
-    <div (mouseenter)="enter($event)" (mouseleave)="leave($event)"  class="phone-box">
+  <div  class="phone-box-wrapper">
+    <div *ngFor="let phone of mostValued"  (mouseenter)="enter($event)" (mouseleave)="leave($event)"  class="phone-box" (click)="openPhoneInfo(phone)"> 
         <div class="red-box"><img id="phone_img" [src]="img_phone"></div>
         <div class="phone-name">
-         <strong>Phone Name</strong>
+         <div><strong>{{phone?.name}}</strong></div>
+         <div class="points"><strong >{{phone?.points?.totalPoints.toFixed(0)}} pts</strong></div>
         </div>
         <div class="phone-description">
-          <h4>Phone Name</h4>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum itaque aspernatur placeat, corrupti nihil corporis omnis iusto repellendus dolorum veniam</p>
+          <h4><strong>{{phone?.name}}</strong></h4>
+          <p>CPU: {{phone?.attributes?.cpu}}</p>
+          <hr>
+          <p>Camera principal: {{phone?.attributes?.camera_a}} px</p>
+          <hr>
+          <p>Camera secundària: {{phone?.attributes?.camera_b}} px</p>
+          <hr>
+          <p>Bateria: {{phone?.attributes?.battery}} mah</p>
         </div>
-    </div>
-    <div class="phone-box">
-      
-    </div>
-    <div class="phone-box">
-      
-    </div>
-    <div class="phone-box">
-      
-    </div>
-    <div class="phone-box">
-      
     </div>
   </div>
 </div>
-
-<div id="voted-phones">
+<br><br><br>
+<div [@openClose]="showPhones2 ? 'open' : 'closed'" id="voted-phones">
     <h2 style="margin-bottom: 10px;">Els més votats</h2>
     <div class="phones-text">
-      Aqui pots trobar els telèfons mòbils més ben valorats
-  
+      Aqui pots trobar els telèfons mòbils més votats!
     </div>
-    <div class="phone-box-wrapper">
-      <div class="phone-box">
-       
+    <div  class="phone-box-wrapper">
+    <div *ngFor="let phone of mostVoted"  (mouseenter)="enter($event)" (mouseleave)="leave($event)"  class="phone-box" (click)="openPhoneInfo(phone)">
+      <div class="red-box"><img id="phone_img" [src]="img_phone"></div>
+      <div class="phone-name">
+       <div><strong>{{phone?.name}}</strong></div>
+       <div class="votes"><strong >{{phone?.points?.totalPoints.toFixed(0)}} pts</strong></div>
       </div>
-      <div class="phone-box">
-        
+      <div class="phone-description">
+        <h4><strong>{{phone?.name}}</strong></h4>
+        <p>CPU: {{phone?.attributes?.cpu}}</p>
+        <hr>
+        <p>Camera principal: {{phone?.attributes?.camera_a}} px</p>
+        <hr>
+        <p>Camera secundària: {{phone?.attributes?.camera_b}} px</p>
+        <hr>
+        <p>Bateria: {{phone?.attributes?.battery}} mah</p>
       </div>
-      <div class="phone-box">
-        
-      </div>
-      <div class="phone-box">
-        
-      </div>
-      <div class="phone-box">
-        
-      </div>
-    </div>
+  </div>
+</div>
 </div>

@@ -1,26 +1,67 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatDialog } from '@angular/material';
 import { SidenavService } from '../sidenav-service';
+import { Phone } from '../model/phone';
+import { AppComponent } from '../app.component';
+import { DataService } from '../data-service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { InfoModalComponent } from '../info-modal/info-modal.component';
+
 declare var require: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        opacity: 1, 'margin-top': '0px'
+      })),
+      state('closed', style({
+        opacity: 0, 'margin-top': '60px'
+      })),
+      transition('open => closed', [
+        animate(200)
+      ]),
+      transition('closed => open', [
+        animate(200)
+      ])
+    ])
+  ]
 })
 export class HomeComponent implements OnInit {
 
   img_home = require('./img_home.png');
-  img_phone = require('./iPhoneX-Svr.png');
+  img_phone = require('../../assets/phone-icon.png');
 
-  constructor() {
+  showPhones1 = false;
+  showPhones2 = false;
+
+  mostValued: Phone[];
+  mostVoted: Phone[];
+
+  constructor(private app: AppComponent, private data: DataService, public dialog: MatDialog) {
   }
   ngOnInit() {
+    this.app.progressStart(true);
+    this.data.getMostValued().subscribe(response => {
+      this.mostValued = response;
+      setTimeout(() => {
+        this.showPhones1 = true;
+      }, 200);
+      this.data.getMostVoted().subscribe(data => {
+        this.mostVoted = data;
+        setTimeout(() => {
+          this.showPhones2 = true;
+        }, 200);
+      });
+      this.app.progressFinish(true);
+    });
   }
 
   enter(event) {
-    console.log('enter', event);
     const phone_image = event.target.childNodes[0];
     const phone_name = event.target.childNodes[1];
     const phone_description = event.target.childNodes[2];
@@ -30,12 +71,20 @@ export class HomeComponent implements OnInit {
   }
 
   leave(event) {
-    console.log('leave', event);
     const phone_image = event.target.childNodes[0];
     const phone_name = event.target.childNodes[1];
     const phone_description = event.target.childNodes[2];
     phone_image.className = 'red-box-animation-in';
     phone_name.style.opacity = 1;
     phone_description.style.opacity = 0;
+  }
+
+  openPhoneInfo(phone: Phone) {
+    const dialogRef = this.dialog.open(InfoModalComponent, {
+      width: '500px',
+      data: {
+        phone: phone
+      }
+    });
   }
 }

@@ -1,3 +1,162 @@
-<p>
-  search works!
-</p>
+<div id="content-wrapper">
+
+<h2 style="margin-bottom: 10px;">Cerca de telèfons</h2>
+<div class="phones-text">
+  Aqui pots buscar entre els telèfons disponibles i comparar-los!
+</div>
+<mat-accordion >
+  <mat-expansion-panel style="margin-top: 10px;">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong><div style="user-select: none;">Cerca avançada</div></strong>
+      </mat-panel-title>
+      <mat-panel-description>
+        <div style="user-select: none;"> Desplega aquesta pestanya per tal de realitzar filtrats i cerques personalitzades dels registres</div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div style="text-align: center">
+        <div id="form-wrapper">
+          <div class="form-part">
+            <label>Pes màxim: </label>
+              <mat-slider
+                thumbLabel
+                [displayWith]="formatLabel"
+                tickInterval="1"
+                [(ngModel)]="enteredWeight"
+                min="1"
+                max="300"></mat-slider><br>
+            <label>Sim tray: </label>
+            <mat-form-field class="form-input-search"> 
+              <input [formControl]="simTrayControl" type="number" min="1" max="2" [(ngModel)]="enteredSim" matInput placeholder="Entra la sim tray ">
+              <mat-hint>1 0 2 ranures de sim</mat-hint>
+              <mat-error *ngIf="simTrayControl.hasError('min') || simTrayControl.hasError('max')">
+                El valor te que ser entre 1 i 2!
+              </mat-error>
+            </mat-form-field><br>
+            <label>Min display: </label>
+            <mat-form-field class="form-input-search"> 
+              <input [formControl]="minDisplayControl"  type="number" min="0" max="10" [(ngModel)]="enteredMinDisplay" matInput>
+              <mat-hint>Polzades mínimes de la pantalla</mat-hint>
+              <mat-error *ngIf="minDisplayControl.hasError('min') || minDisplayControl.hasError('max')">
+                El valor te que ser entre 0 i 10!
+              </mat-error>
+            </mat-form-field><br>
+            <label>Max display: </label>
+            <mat-form-field class="form-input-search"> 
+              <input [formControl]="maxDisplayControl"  type="number" min="0" max="10" [(ngModel)]="enteredMaxDisplay" matInput >
+              <mat-hint>Polzades màximes de la pantalla</mat-hint>
+              <mat-error *ngIf="maxDisplayControl.hasError('min') || maxDisplayControl.hasError('max')">
+                El valor te que ser entre 0 i 10!
+              </mat-error>
+            </mat-form-field><br>
+            
+            <mat-checkbox  [(ngModel)]="enteredCardSlot" labelPosition="before">Memoria expansible:</mat-checkbox><br>
+            <mat-checkbox  [(ngModel)]="enteredJack" labelPosition="before">Entrada jack:</mat-checkbox><br>
+            <mat-checkbox  [(ngModel)]="enteredMultitouch" labelPosition="before">Multitouch:</mat-checkbox><br>
+            
+           
+          </div>
+          <div class="form-part" style="margin-left: 100px">
+            <label>Càmara principal: </label>
+            <mat-form-field class="form-input-search"> 
+              <input [formControl]="cameraAControl" type="number" [(ngModel)]="enteredCameraA" matInput>
+              <mat-error *ngIf="cameraAControl.hasError('min') || cameraAControl.hasError('max')">
+                El valor te que ser entre 0 i 100!
+              </mat-error>
+              <mat-hint>Mínim de megapixels</mat-hint>
+            </mat-form-field><br>
+
+            <label>Càmara secundària: </label>
+            <mat-form-field class="form-input-search"> 
+              <input [formControl]="cameraBControl" type="number" [(ngModel)]="enteredCameraB" matInput>
+              <mat-error *ngIf="cameraBControl.hasError('min') || cameraBControl.hasError('max')">
+                El valor te que ser entre 0 i 100!
+              </mat-error>
+              <mat-hint>Mínim de megapixels</mat-hint>
+            </mat-form-field><br>
+
+            <label>Tipus de pantalla: </label>
+            <mat-form-field>
+              <mat-select  [(ngModel)]="enteredDisplay">
+                <mat-option *ngFor="let display of displays" [(value)]="display.value" >
+                  {{display.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field><br>
+
+            <label>ROM: </label>
+            <mat-form-field>
+            <mat-select  [(ngModel)]="enteredRom">
+              <mat-option *ngFor="let memory of memories" [(value)]="memory.value" >
+                {{memory.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-hint>Mínim de gigabytes</mat-hint>
+          </mat-form-field><br>
+
+            <label>RAM: </label>
+            <mat-form-field>
+            <mat-select  [(ngModel)]="enteredRam">
+              <mat-option *ngFor="let memory of memories" [(value)]="memory.value" >
+                {{memory.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-hint>Mínim de gigabytes</mat-hint>
+          </mat-form-field><br>
+
+            <label>Tipus de port: </label>
+            <mat-form-field>
+              <mat-select  [(ngModel)]="enteredPort">
+                <mat-option *ngFor="let port of ports" [(value)]="port.value" >
+                  {{port.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <button (click)="search()" [disabled]="disabledSearch" mat-raised-button color="primary">Cercar</button>
+      </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<div id="table-card" [@openClose]="showPhones ? 'open' : 'closed'">
+  <mat-card class="mat-elevation-z4">
+  <table datatable [dtOptions]="dtOptions[0]" [dtTrigger]="dtTrigger[0]" class="row-border hover cell-border">
+    <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Empresa</th>
+          <th>CPU</th>
+          <th>Bateria</th>
+          <th>Accions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let phone of phones">
+          <td>{{phone.name}}</td>
+          <td>{{phone.brand}}</td>
+          <td>{{phone.attributes.cpu}}</td>
+          <td>{{phone.attributes.battery}} mah</td>
+          <td class="buttons-td" style="text-align: center;">
+            <button class="accions-button" matTooltipPosition="right" matTooltipPosition="left" matTooltip="Detalls" mat-icon-button color="primary" (click)="openInfo(phone)"><mat-icon>ballot</mat-icon></button>&nbsp;&nbsp;
+            <button class="accions-button" matTooltipPosition="right" mat-flat-button color="primary">Comparar</button>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="phones?.length == 0">
+        <tr>
+          <td colspan="4" class="no-data-available">No s'han trobat registres</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th><input class="footerInput" type="text" placeholder="Buscar nom"/></th>
+          <th><input class="footerInput" type="text" placeholder="Buscar empresa"/></th>
+          <th><input class="footerInput" type="text" placeholder="Buscar cpu"/></th>
+          <th><input class="footerInput" type="text" placeholder="Buscar bateria"/></th>
+          <th></th>
+        </tr>
+      </tfoot>
+  </table>
+</mat-card>
+</div>
+</div>

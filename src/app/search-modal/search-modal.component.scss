@@ -1,0 +1,22 @@
+.footerInput{
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style:1px solid rgb(201, 201, 201);
+    transition: none;
+    width: 100% ;
+}
+.footerInput:focus{
+    border-bottom-color: rgb(29, 108, 199);
+    outline:none;
+}
+
+.selectedPhone{
+    background: repeating-linear-gradient(
+        135deg,
+        #ffffff,
+        #ffffff 10px,
+        #ebebeb 10px,
+        #ebebeb 20px
+      );  
+}

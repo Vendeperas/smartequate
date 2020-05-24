@@ -1,4 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<div id="loadingDiv"></div>
+<ng-progress color="rgb(51, 150, 255)" #progressBar></ng-progress>
 <button id="side-nav-button" mat-icon-button (click)="toggleRightSidenav()"><mat-icon>menu</mat-icon></button>
 <mat-sidenav-container class="example-sidenav-container">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
@@ -12,8 +14,9 @@
                     <div class="selected-bar" [class.activated]="currentUrl == '/search'"></div>
                     Cercar
                 </li>
-                <li>
-                    Comparar
+                <li routerLink="compare" (click)="closeSideNav()">
+                    <div class="selected-bar" [class.activated]="currentUrl == '/compare'"></div>
+                    Cercar
                 </li>
                 <li>
                     Informació
@@ -26,3 +29,4 @@
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
+<app-footer></app-footer>

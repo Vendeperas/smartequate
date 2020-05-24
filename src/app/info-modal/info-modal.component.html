@@ -1,0 +1,114 @@
+<h2 mat-dialog-title>Informació sobre el teleèfon</h2>
+<div mat-dialog-content>
+  <mat-card>
+    <strong>Nom:</strong> {{phoneInfo.phone.name}}<br>
+    <hr>
+    <strong>Empresa:</strong> {{phoneInfo.phone.brand}}<br>
+    <hr>
+    <strong>Pes:</strong> {{phoneInfo.phone.attributes.weight}} grams<br>
+    <hr>
+    <strong>Sim tray:</strong> {{phoneInfo.phone.attributes.sim_tray}}<br>
+    <hr>
+    <strong>CPU:</strong> {{phoneInfo.phone.attributes.cpu}}<br>
+    <hr>
+    <strong>ROM:</strong> {{phoneInfo.phone.attributes.rom}} gb<br>
+    <hr>
+    <strong>RAM:</strong> {{phoneInfo.phone.attributes.ram}} gb<br>
+    <hr>
+    <strong>Memoria expansible:</strong> {{phoneInfo.phone.attributes.card_slot}}<br>
+    <hr>
+    <strong>Camara principal:</strong> {{phoneInfo.phone.attributes.camera_a}} px<br>
+    <hr>
+    <strong>Camara secundaria:</strong> {{phoneInfo.phone.attributes.camera_b}} px<br>
+    <hr>
+    <strong>Entrada jack:</strong> {{phoneInfo.phone.attributes.jack}}<br>
+    <hr>
+    <strong>Tipus de pantalla:</strong> {{phoneInfo.phone.attributes.display_type}}<br>
+    <hr>
+    <strong>Resolució:</strong> {{phoneInfo.phone.attributes.resolution.width}} x {{phoneInfo.phone.attributes.resolution.height}}<br>
+    <hr>
+    <strong>Tipus de port:</strong> {{phoneInfo.phone.attributes.port}}<br>
+    <hr>
+    <strong>Multitouch:</strong> {{phoneInfo.phone.attributes.multitouch}}<br><br>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           <strong>Sensors</strong>
+          </mat-panel-title>
+          <mat-panel-description>
+            Obrir per veure els sensors
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <strong>Acceleròmetre</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.accelerometer" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.accelerometer" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+        <hr>
+        <strong>Giroscopi</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.gyroscope" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.gyroscope" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+        <hr>
+        <strong>Magnetòmetre</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.magnetometer" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.magnetometer" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+        <hr>
+        <strong>GPS</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.gps" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.gps" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+        <hr>
+        <strong>Proximitat</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.proximity" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.proximity" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+        <hr>
+        <strong>Llum</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.light" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.light" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+        <hr>
+        <strong>Emprempta digital</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.fingerprint" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.fingerprint" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+        <hr>
+        <strong>Baròmetre</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.barometer" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.barometer" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+        <hr>
+        <strong>Termòmetre</strong>
+        <mat-icon *ngIf="phoneInfo.phone.attributes.sensors.thermometer" class="check-icon">check_box</mat-icon>
+        <mat-icon *ngIf="!phoneInfo.phone.attributes.sensors.thermometer" class="check-icon">check_box_outline_blank</mat-icon>
+        <br>
+      </mat-expansion-panel><br>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Dimensions</strong>
+            </mat-panel-title>
+            <mat-panel-description>
+              Obrir per veure les dimensions
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <strong>Longitud</strong><div class="size-str">{{phoneInfo.phone.attributes.size.length}} mm</div>
+          <br>
+          <hr>
+          <strong>Amplada</strong><div class="size-str">{{phoneInfo.phone.attributes.size.width}} mm</div>
+          <br>
+          <hr>
+          <strong>Alçada</strong><div class="size-str">{{phoneInfo.phone.attributes.size.height}} mm</div>
+          <br>
+          <hr>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-accordion>
+  </mat-card>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" cdkFocusInitial>Tancar</button>
+</div>
