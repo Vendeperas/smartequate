@@ -19,10 +19,11 @@
         <div><img class="phone_img" [src]="img_phone"></div>
         <div><strong>{{phone1?.name}}</strong></div>
         <div class="points">{{phone1?.points?.totalPoints.toFixed(0)}} pts</div>
+        <div class="points">{{phone1?.votes}} <mat-icon style="font-size:18px;color:rgb(116, 189, 48)">thumb_up</mat-icon></div>
       </div>
     </div>
-    <div *ngIf="!showCompare" id="compare-button"><button [disabled]="flagSelected1 || flagSelected2" mat-flat-button color="primary" (click)="compare()">Comparar</button></div>
-    <div *ngIf="showCompare" id="compare-button"><button mat-flat-button color="primary" (click)="cancel()">Tornar</button></div>
+    <div *ngIf="!showCompare" id="compare-button"><button [disabled]="flagSelected1 || flagSelected2" mat-flat-button color="primary" (click)="compare()">Comparar <mat-icon>compare_arrows</mat-icon></button></div>
+    <div *ngIf="showCompare" id="compare-button"><button mat-flat-button color="primary" (click)="cancel()">Tornar <mat-icon>autorenew</mat-icon></button></div>
     <div class="compared-phone">
       <div *ngIf="flagSelected2" class="phone-box" (click)="openSearch2()">
         <div >
@@ -36,6 +37,7 @@
         <div><img class="phone_img" [src]="img_phone"></div>
         <div><strong>{{phone2?.name}}</strong></div>
         <div class="points">{{phone2?.points?.totalPoints.toFixed(0)}} pts</div>
+        <div class="points">{{phone2?.votes}} <mat-icon style="font-size:18px;color:rgb(116, 189, 48)">thumb_up</mat-icon></div>
       </div>
     </div>
   </mat-card>
@@ -69,8 +71,8 @@
               <td [ngClass]="{'red' : phone1.points.displaySizePoints > phone2.points.displaySizePoints , 'green' : phone1.points.displaySizePoints <= phone2.points.displaySizePoints}"><strong style="color:grey">Pantalla:</strong> {{phone2?.attributes?.display_size}} polzades ({{phone2.points.displaySizePoints.toFixed(0)}} pts)</td>
             </tr>
             <tr>
-              <td [ngClass]="{'red' : phone1.points.cardSlotPoints < phone2.points.cardSlotPoints , 'green' : phone1.points.cardSlotPoints >= phone2.points.cardSlotPoints}"><strong style="color:grey">Ranures targeta memoria:</strong> {{phone1?.attributes?.card_slot}} ut ({{phone1.points.cardSlotPoints.toFixed(0)}} pts)</td>
-              <td [ngClass]="{'red' : phone1.points.cardSlotPoints > phone2.points.cardSlotPoints , 'green' : phone1.points.cardSlotPoints <= phone2.points.cardSlotPoints}"><strong style="color:grey">Ranures targeta memoria:</strong> {{phone2?.attributes?.card_slot}} ut ({{phone2.points.cardSlotPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.cardSlotPoints < phone2.points.cardSlotPoints , 'green' : phone1.points.cardSlotPoints >= phone2.points.cardSlotPoints}"><strong style="color:grey">Ranures targeta memoria:</strong> {{phone1?.attributes?.card_slot ? 'SI' : 'NO'}} ({{phone1.points.cardSlotPoints.toFixed(0)}} pts)</td>
+              <td [ngClass]="{'red' : phone1.points.cardSlotPoints > phone2.points.cardSlotPoints , 'green' : phone1.points.cardSlotPoints <= phone2.points.cardSlotPoints}"><strong style="color:grey">Ranures targeta memoria:</strong> {{phone2?.attributes?.card_slot ? 'SI' : 'NO'}} ({{phone2.points.cardSlotPoints.toFixed(0)}} pts)</td>
             </tr>
             <tr>
               <td [ngClass]="{'red' : phone1.points.cameraAPoints < phone2.points.cameraAPoints , 'green' : phone1.points.cameraAPoints >= phone2.points.cameraAPoints}"><strong style="color:grey">Càmara principal:</strong> {{phone1?.attributes?.camera_a}} mpx ({{phone1.points.cameraAPoints.toFixed(0)}} pts)</td>

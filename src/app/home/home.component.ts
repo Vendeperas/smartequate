@@ -53,7 +53,19 @@ export class HomeComponent implements OnInit {
       }, 200);
       this.data.getMostVoted().subscribe(data => {
         this.mostVoted = data;
+        this.mostVoted.forEach(phone => {
+          this.data.getPhoneVotes(phone.id).subscribe(votes => {
+            phone.votes = votes;
+          });
+      });
         setTimeout(() => {
+          this.mostVoted = this.mostVoted.sort(function(a, b) {
+            if (a.votes < b.votes) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
           this.showPhones2 = true;
         }, 200);
       });
@@ -79,12 +91,33 @@ export class HomeComponent implements OnInit {
     phone_description.style.opacity = 0;
   }
 
-  openPhoneInfo(phone: Phone) {
+  openPhoneInfo(phoneInfo: Phone) {
     const dialogRef = this.dialog.open(InfoModalComponent, {
       width: '500px',
       data: {
-        phone: phone
+        phone: phoneInfo
       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.data.getMostVoted().subscribe(data => {
+        this.mostVoted = data;
+        this.mostVoted.forEach(phone => {
+          this.data.getPhoneVotes(phone.id).subscribe(votes => {
+            phone.votes = votes;
+          });
+      });
+        setTimeout(() => {
+          this.mostVoted = this.mostVoted.sort(function(a, b) {
+            if (a.votes < b.votes) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
+          this.showPhones2 = true;
+        }, 200);
+      });
     });
   }
 }

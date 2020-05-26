@@ -23,9 +23,11 @@
     "@angular/router": "~7.2.0",
     "@ngx-progressbar/core": "^5.3.2",
     "@types/animejs": "^2.0.2",
+    "@types/crypto-js": "^3.1.47",
     "angular-datatables": "^9.0.2",
     "animejs": "^2.2.0",
     "core-js": "^2.5.4",
+    "crypto-js": "^4.0.0",
     "datatables.net": "^1.10.21",
     "datatables.net-dt": "^1.10.21",
     "jquery": "^3.5.1",
@@ -55,5 +57,8 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
+  },
+  "browser": {
+    "crypto": false
   }
 }

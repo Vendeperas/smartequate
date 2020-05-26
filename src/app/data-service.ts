@@ -15,7 +15,7 @@ import { Phone, PageableResponse, CustomSearchBody } from './model/phone';
     /*httpOptions() {
       const httpOptions = {
         headers: new HttpHeaders({
-          'X-IBM-Client-Id' : this.clientId
+          'Authorization' : 'Bearer '
         })
       };
 
@@ -46,5 +46,30 @@ import { Phone, PageableResponse, CustomSearchBody } from './model/phone';
 
     getAllPhones(query: String) {
       return this.http.get<PageableResponse>(this.baseUrl + 'phones/all' + query);
+    }
+
+    getPhoneVotes(id: number) {
+      return this.http.get<number>(this.baseUrl + 'votes/phones/' + id);
+    }
+
+    authenticate(user: String, pass: String) {
+      const body = {
+        username: user,
+        password: pass
+      };
+
+      return this.http.post(this.baseUrl + 'authenticate', body);
+    }
+
+    checkIfLiked(phoneId: number, user: String) {
+      return this.http.get<boolean>(this.baseUrl + 'votes/phone/' + phoneId + '/user/' + user);
+    }
+
+    likePhone(phoneId: number, user: String) {
+      return this.http.post<any>(this.baseUrl + 'votes/phone/' + phoneId + '/user/' + user, null);
+    }
+
+    unlikePhone(phoneId: number, user: String) {
+      return this.http.delete<any>(this.baseUrl + 'votes/phone/' + phoneId + '/user/' + user);
     }
 }

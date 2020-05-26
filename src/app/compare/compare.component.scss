@@ -72,13 +72,14 @@
 }
 
 .red{
-    background: rgba(255, 0, 0, 0.13);
+  //  background: rgba(255, 0, 0, 0.13);
     margin: 3px 3px 3px 3px;
     border: 1px solid grey;
 }
 
 .green{
-    background: rgba(0, 128, 0, 0.123);
+  //  background: rgba(0, 128, 0, 0.123);
     margin: 3px 3px 3px 3px;
-    border: 1px solid grey;
+    border: 3px solid rgb(46, 46, 46);
+    color: black;
 }

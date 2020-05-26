@@ -4,6 +4,7 @@ export class Phone {
     attributes: Attributes;
     brand: String;
     points: Points;
+    votes: number;
 }
 
 export class Attributes {

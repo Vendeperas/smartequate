@@ -1,0 +1,44 @@
+#login-card{
+    text-align: center;
+    padding: 40px;
+    width: 300px;
+    display: block;
+    margin: 0px auto 0px auto;
+}
+
+#login-content-wrapper{
+    margin-top: 30px;
+}
+
+.credential-icon{
+    vertical-align: bottom;
+    color: rgb(163, 163, 163);
+    margin-right: 5px;
+    margin-bottom: -2px;
+}
+
+.login-input{
+    width: 300px;
+    margin-top: 10px; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto
+}
+
+#loginSpinner{
+    margin: 0px 0px 0px 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#loginBtn{
+    display: inline-block;
+}
+
+.show-bar{
+    opacity: 1;
+}
+
+.hide-bar{
+    opacity: 0;
+}

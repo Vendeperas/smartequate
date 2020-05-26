@@ -8,6 +8,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { InfoModalComponent } from '../info-modal/info-modal.component';
+import { SelectService } from '../select-service';
+import { Router } from '@angular/router';
 
 export interface DisplayInterface {
   value:  String;
@@ -47,7 +49,8 @@ export interface MemoryInterface {
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private app: AppComponent, private data: DataService, public dialog: MatDialog) { }
+  constructor(private app: AppComponent, private data: DataService, public dialog: MatDialog, private select: SelectService,
+    private router: Router) { }
 
   dtOptions: DataTables.Settings[] = [];
 
@@ -276,6 +279,11 @@ export class SearchComponent implements OnInit {
         phone: phone
       }
     });
+  }
+
+  selectPhone(phone: Phone) {
+    this.select.setPhone(phone);
+    this.router.navigateByUrl('/compare');
   }
 
 }

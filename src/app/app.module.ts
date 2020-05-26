@@ -12,7 +12,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { SidenavService } from './sidenav-service';
 import { NgProgressModule } from '@ngx-progressbar/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InfoModalComponent } from './info-modal/info-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
@@ -27,7 +27,15 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import { CompareComponent } from './compare/compare.component';
 import { SearchModalComponent } from './search-modal/search-modal.component';
-import { FooterComponent } from './footer/footer.component';
+import { SelectService } from './select-service';
+import { LoginComponent } from './login/login.component';
+import { ReloginComponent } from './relogin/relogin.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserService } from './user-service';
+import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OauthGuard } from './oauth-guard';
+import { Interceptor } from './interceptor';
+import { LoadingService } from './loading-service';
 
 @NgModule({
   declarations: [
@@ -38,9 +46,12 @@ import { FooterComponent } from './footer/footer.component';
     InfoModalComponent,
     CompareComponent,
     SearchModalComponent,
-    FooterComponent
+    LoginComponent,
+    ReloginComponent
   ],
   imports: [
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
     MatSliderModule,
     MatSelectModule,
     MatCheckboxModule,
@@ -63,8 +74,11 @@ import { FooterComponent } from './footer/footer.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [ SidenavService,  {provide: AppComponent, useClass: AppComponent}],
+  providers: [ SidenavService,  {provide: AppComponent, useClass: AppComponent}, {provide: SelectService, useClass: SelectService},
+    {provide: UserService, useClass: UserService}, {provide: OauthGuard, useClass: OauthGuard},
+    {provide: LoadingService, useClass: LoadingService},
+    {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent],
-  entryComponents: [InfoModalComponent, SearchModalComponent]
+  entryComponents: [InfoModalComponent, SearchModalComponent, ReloginComponent]
 })
 export class AppModule { }

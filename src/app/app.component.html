@@ -1,7 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div id="loadingDiv"></div>
 <ng-progress color="rgb(51, 150, 255)" #progressBar></ng-progress>
-<button id="side-nav-button" mat-icon-button (click)="toggleRightSidenav()"><mat-icon>menu</mat-icon></button>
+<app-menu></app-menu>
+<router-outlet></router-outlet>
+<!--<button id="side-nav-button" mat-icon-button (click)="toggleRightSidenav()"><mat-icon>menu</mat-icon></button>
 <mat-sidenav-container class="example-sidenav-container">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
         <nav>
@@ -28,5 +30,4 @@
         <app-menu></app-menu>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
-</mat-sidenav-container>
-<app-footer></app-footer>
+</mat-sidenav-container>-->

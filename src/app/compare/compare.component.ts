@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { AppComponent } from '../app.component';
+import { SelectService } from '../select-service';
+import { DataService } from '../data-service';
 declare var require: any;
 
 @Component({
@@ -32,7 +34,7 @@ declare var require: any;
 })
 export class CompareComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private app: AppComponent) { }
+  constructor(public dialog: MatDialog, private app: AppComponent, private select: SelectService, private data: DataService) { }
 
   dtOptions: DataTables.Settings[] = [];
 
@@ -61,6 +63,13 @@ export class CompareComponent implements OnInit {
       ]
     };
     this.dtTrigger[0] = new Subject<any>();
+    if (this.select.getPhone() !== null) {
+      this.phone1 = this.select.getPhone();
+      this.data.getPhoneVotes(this.phone1.id).subscribe(data => {
+        this.phone1.votes = data;
+      });
+      this.flagSelected1 = false;
+    }
   }
 
   openSearch1() {
@@ -79,6 +88,9 @@ export class CompareComponent implements OnInit {
       if (result !== undefined) {
         this.flagSelected1 = false;
         this.phone1 = result;
+        this.data.getPhoneVotes(result.id).subscribe(data => {
+          this.phone1.votes = data;
+        });
         if (!this.flagSelected2 && this.flagSelected1) {
           this.dtTrigger[0].next();
         }
@@ -102,6 +114,9 @@ export class CompareComponent implements OnInit {
       if (result !== undefined) {
         this.flagSelected2 = false;
         this.phone2 = result;
+        this.data.getPhoneVotes(result.id).subscribe(data => {
+          this.phone2.votes = data;
+        });
         if (!this.flagSelected2 && this.flagSelected1) {
           this.dtTrigger[0].next();
         }

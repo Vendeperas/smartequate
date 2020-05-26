@@ -3,6 +3,7 @@ import * as anime from 'animejs';
 import * as $ from 'jquery';
 import { Router, NavigationEnd } from '@angular/router';
 import { SidenavService } from '../sidenav-service';
+import { UserService } from '../user-service';
 declare var require: any;
 @Component({
   selector: 'app-menu',
@@ -17,10 +18,18 @@ export class MenuComponent implements OnInit, AfterViewInit {
   currentUrl: string;
 
 
-  constructor(private router: Router, private sidenav: SidenavService) {}
+  constructor(private router: Router, private userService: UserService) {}
 
+  user = '';
 
   ngOnInit() {
+    this.userService.setdecryptedUser$.subscribe(data => {
+      this.user = data;
+      console.log('seteado el usuario ' + this.user);
+    });
+
+    this.user = this.userService.getDecryptedUser();
+
     this.router.events.subscribe(data => {
      if (data instanceof NavigationEnd) {
       this.currentUrl = window.location.pathname;
@@ -74,4 +83,11 @@ export class MenuComponent implements OnInit, AfterViewInit {
       document.documentElement.clientWidth
     );
   }
+
+  logout() {
+    localStorage.clear();
+    this.userService.setDecryptedUser('');
+    this.router.navigateByUrl('/login');
+  }
+
 }

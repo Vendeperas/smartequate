@@ -1,0 +1,28 @@
+<div id="login-content-wrapper">
+  <div id="login-content">
+
+        <mat-card id="login-card">
+            <h3>Autenticació</h3>
+            <form class="login-form">
+                <mat-form-field class="login-input">
+                    <span matPrefix><mat-icon class="credential-icon">account_circle</mat-icon> </span>
+                    <input id="userInput" [formControl]="userInput"  matInput placeholder="Usuari">
+                    <mat-error *ngIf="userInput.hasError('required')">
+                        L'usuari és un camp <strong>obligatori</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="login-input">
+                    <span matPrefix><mat-icon class="credential-icon">lock</mat-icon> </span>
+                    <input autocomplete="off" id="passInput" [formControl]="passInput" type="password" matInput placeholder="Contrasenya">
+                    <mat-error *ngIf="passInput.hasError('required')">
+                        La contrasenya és un camp <strong>obligatori</strong>
+                    </mat-error>
+                </mat-form-field>
+              </form>
+              <br>
+              <button id="loginBtn" (click)="login()" mat-flat-button color="primary">Entrar</button>
+              <mat-spinner id="loginSpinner" [ngClass]="showBar ? 'show-bar':'hide-bar'" diameter="24"></mat-spinner>
+        </mat-card>
+
+  </div>
+</div>

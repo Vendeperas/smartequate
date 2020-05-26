@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Autenticació</h2>
+<div mat-dialog-content>
+  <p>Siusplau torni a entrar les seves credencials.</p>
+  <div id="login-card">
+    <form class="login-form">
+      <mat-form-field class="login-input">
+        <span matPrefix><mat-icon class="credential-icon">account_circle</mat-icon> </span>
+        <input cdkFocusInitial id="userInput" [formControl]="userInput"  matInput placeholder="Usuari">
+        <mat-error *ngIf="userInput.hasError('required')">
+            L'usuari és un camp <strong>obligatori</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="login-input">
+        <span matPrefix><mat-icon class="credential-icon">lock</mat-icon> </span>
+        <input autocomplete="off" id="passInput" [formControl]="passInput" type="password" matInput placeholder="Contrasenya">
+        <mat-error *ngIf="passInput.hasError('required')">
+            La contrasenya és un camp <strong>obligatori</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <br>
+ 
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" cdkFocusInitial>Sortir</button>
+  <button id="loginBtn" (click)="login()" mat-flat-button color="primary">Entrar</button>
+  <mat-spinner id="loginSpinner" *ngIf="showBar" diameter="24"></mat-spinner>
+</div>

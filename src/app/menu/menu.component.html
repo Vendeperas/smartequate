@@ -10,16 +10,20 @@
     </span>
   </h1>
   <h1 class="letters-responsive">SMARTEQUATE</h1>
-  <nav id="nav_menu">
+  <nav id="nav_menu" *ngIf="user !== ''">
     <ul> 
       <li id="user-li">
-          <div id="user-div"><button class="user-button" mat-stroked-button color="primary">Iniciar sessió</button></div> 
+        <div id="logout_div">
+          <button (click)="logout()" matTooltip="Logout" mat-icon-button>
+              <mat-icon color="primary" style="font-size: 26px">exit_to_app</mat-icon>
+            </button>
+        </div>
+          <div id="user-div">
+            <mat-icon id="user-icon">perm_identity</mat-icon>
+            <div id="user-id">{{user}}</div>
+          
+          </div> 
         </li>
-        <li>
-            <a>
-            Informació
-            </a> 
-          </li>
         <li>
           <a title="Comparar telefons" routerLink="compare">
             <div>Comparar</div>

@@ -1,0 +1,29 @@
+#login-card{
+    text-align: center;
+    width: 300px;
+    display: block;
+    margin: 0px auto 0px auto;
+}
+
+.credential-icon{
+    vertical-align: bottom;
+    color: rgb(163, 163, 163);
+    margin-right: 5px;
+    margin-bottom: -2px;
+}
+
+.login-input{
+    width: 300px;
+    margin-top: 10px; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto
+}
+
+#loginBtn{
+    margin-left: 20px;
+}
+
+#loginSpinner{
+    margin-left: 10px;
+}
