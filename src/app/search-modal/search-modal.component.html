@@ -13,12 +13,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let phone of phones">
-            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}">{{phone.name}}</td>
-            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}">{{phone.brand}}</td>
-            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}">{{phone.attributes.cpu}}</td>
-            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}">{{phone.attributes.battery}} mah</td>
-            <td [ngClass]="{'selectedPhone' : phone.id == phoneId}" class="buttons-td" style="text-align: center;">
-              <button [disabled]="phone.id == phoneId" class="accions-button" matTooltipPosition="right" mat-flat-button color="primary" (click)="selectPhone(phone)">Seleccionar</button>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId1 || phone.id == phoneId2 || phone.id == phoneId3}">{{phone.name}}</td>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId1 || phone.id == phoneId2 || phone.id == phoneId3}">{{phone.brand}}</td>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId1 || phone.id == phoneId2 || phone.id == phoneId3}">{{phone.attributes.cpu}}</td>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId1 || phone.id == phoneId2 || phone.id == phoneId3}">{{phone.attributes.battery}} mah</td>
+            <td [ngClass]="{'selectedPhone' : phone.id == phoneId1 || phone.id == phoneId2 || phone.id == phoneId3}" class="buttons-td" style="text-align: center;">
+              <button [disabled]="phone.id == phoneId1 || phone.id == phoneId2 || phone.id == phoneId3" class="accions-button" matTooltipPosition="right" mat-flat-button color="primary" (click)="selectPhone(phone)">Seleccionar</button>
             </td>
           </tr>
         </tbody>

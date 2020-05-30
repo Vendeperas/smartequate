@@ -14,7 +14,7 @@
     margin-bottom: 10px;
     margin-top: 10px;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 33% 33% 33%;
     justify-items: center;
 }
 
@@ -35,10 +35,40 @@
     cursor: pointer;
 }
 
-#compare-card{
+#compare-card1{
     width: 100%;
-    margin-bottom: 20px;
+    padding-right: 0px;
+    padding-left: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    //border-bottom-left-radius: 10px;
+    //border-top-left-radius: 10px;
 }
+
+#compare-card2{
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+   border-radius: 0px;
+}
+
+#compare-card3{
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    //border-top-right-radius: 0px;
+    //border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+#compare-tables{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    justify-items: center;
+}
+
 
 #compare-button{
     position: absolute;
@@ -55,6 +85,7 @@
     margin-top: 30px;
     text-align: center;
     vertical-align: top;
+    cursor: pointer;
 }
 
 .phone_img{
@@ -72,14 +103,25 @@
 }
 
 .red{
-  //  background: rgba(255, 0, 0, 0.13);
-    margin: 3px 3px 3px 3px;
+    background: rgba(255, 0, 0, 0.13);
+    // margin: 3px 3px 3px 3px;
     border: 1px solid grey;
 }
 
 .green{
-  //  background: rgba(0, 128, 0, 0.123);
-    margin: 3px 3px 3px 3px;
-    border: 3px solid rgb(46, 46, 46);
+    background: rgba(0, 128, 0, 0.123);
+    // margin: 3px 3px 3px 3px;
+    border: 1px solid rgb(46, 46, 46);
     color: black;
+}
+
+.table-wrapper{
+    width: 100%;
+}
+
+.star-icon{
+    position: absolute;
+    right: 47%;
+    top: 7px;
+    color: #ffe14f;
 }

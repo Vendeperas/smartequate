@@ -23,9 +23,14 @@ export class SearchModalComponent implements OnInit {
   dtTrigger: Subject<any>[] = [];
   phones: Phone[];
   flagUp = false;
-  phoneId: number;
+  phoneId1: number;
+  phoneId2: number;
+  phoneId3: number;
+
   ngOnInit() {
-    this.phoneId = this.id.id;
+    this.phoneId1 = this.id.id1;
+    this.phoneId2 = this.id.id2;
+    this.phoneId3 = this.id.id3;
     this.dtOptions[0] = {
       pagingType: 'full_numbers',
       pageLength: 5,

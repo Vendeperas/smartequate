@@ -25,7 +25,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.userService.setdecryptedUser$.subscribe(data => {
       this.user = data;
-      console.log('seteado el usuario ' + this.user);
     });
 
     this.user = this.userService.getDecryptedUser();

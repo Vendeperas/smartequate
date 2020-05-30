@@ -14,8 +14,10 @@ export class OauthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
         if (this.checkVariables()) {
+           console.log('Es permet accedir a la ruta: ' + route.url);
            return true;
         } else {
+            console.log('Denegat l\'accés a la ruta: ' + route.url);
             localStorage.clear();
             this.userService.setDecryptedUser('');
             this.router.navigateByUrl('/login');
@@ -24,6 +26,7 @@ export class OauthGuard implements CanActivate {
     }
 
     checkVariables() {
+        console.log('Mirant les variables de localStorage...');
         const accessToken = localStorage.getItem('accessToken');
         let accessTokenValid = false;
 
@@ -31,6 +34,7 @@ export class OauthGuard implements CanActivate {
         let userValid = false;
 
         if (accessToken !== '' && accessToken !== null) {
+            console.log('Existeix accessToken...');
             accessTokenValid = true;
         }
 
@@ -38,6 +42,7 @@ export class OauthGuard implements CanActivate {
             const decryptedUser = this.encryptService.decrypt(user);
             if (decryptedUser !== '') {
                 userValid = true;
+                console.log('Existeix usuari valid...');
                 this.userService.setDecryptedUser(decryptedUser);
             }
         }
@@ -47,6 +52,8 @@ export class OauthGuard implements CanActivate {
         if (valid) {
             this.userService.setUser(this.encryptService.decrypt(user));
         }
+
+        console.log('Resultat de validació de les variables: ' + valid);
         return valid;
       }
 }

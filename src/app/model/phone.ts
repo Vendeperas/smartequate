@@ -5,6 +5,7 @@ export class Phone {
     brand: String;
     points: Points;
     votes: number;
+    best: boolean;
 }
 
 export class Attributes {
@@ -82,6 +83,35 @@ export class Points {
     portPoints: number;
     multitouchPoints: number;
     totalPoints: number;
+}
+
+export class BestPoints {
+    heightPoints: boolean;
+    weightPoints: boolean;
+    simTrayPoints: boolean;
+    cpuPoints: boolean;
+    displaySizePoints: boolean;
+    cardSlotPoints: boolean;
+    cameraAPoints: boolean;
+    cameraBPoints: boolean;
+    jackPoints: boolean;
+    displayTypePoints: boolean;
+    romPoints: boolean;
+    ramPoints: boolean;
+    resolutionPoints: boolean;
+    batteryPoints: boolean;
+    sensorsGyroscopePoints: boolean;
+    sensorsMagnetometerPoints: boolean;
+    sensorsGpsPoints: boolean;
+    sensorsProximityPoints: boolean;
+    sensorsLightPoints: boolean;
+    sensorsFingerprintPoints: boolean;
+    sensorsBarometerPoints: boolean;
+    sensorsThermometerPoints: boolean;
+    sensorsAccelerometerPoints: boolean;
+    portPoints: boolean;
+    multitouchPoints: boolean;
+    totalPoints: boolean;
 }
 
 export class PageableResponse {

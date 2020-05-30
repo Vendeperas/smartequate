@@ -21,7 +21,7 @@ export class Interceptor implements HttpInterceptor {
   constructor( private app: AppComponent, private dialog: MatDialog, private userService: UserService,
     private oauthGuard: OauthGuard, private router: Router, private loadingService: LoadingService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      console.log('interceptado');
+    console.log('Interceptada petició ' + request.url);
     if (!request.url.includes('/authenticate')) {
         if (!this.isRefreshing) {
             if (this.oauthGuard.checkVariables) {
@@ -30,18 +30,19 @@ export class Interceptor implements HttpInterceptor {
                         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                     }
                 });
-                console.log(localStorage.getItem('accessToken'));
-
+                console.log('Afegint el token als headers de la petició...');
                 return  this.returnRequest(request, next);
             } else {
+                console.log('Falten variables de localStorage. Kickout...');
                this.kickOut();
                return throwError('Unauthorized');
             }
         } else {
-            console.log('isRefreshing');
+            console.log('Pendent de relogin. Colocant petició a la cua...');
             return this.handleIsRefreshing(request, next);
         }
     } else {
+        console.log('Petició /authorize ...');
        return this.returnRequest(request, next);
     }
   }
@@ -59,10 +60,10 @@ export class Interceptor implements HttpInterceptor {
   returnRequest(request, next) {
     return next.handle(request).pipe(
         catchError((error: HttpErrorResponse) => {
-            console.log(request.url);
                 switch (error.status) {
                     case 401: {
                         if (!request.url.includes('/authenticate')) {
+                            console.log('Iniciant procés de relogin...');
                             this.isRefreshing = true;
                             setTimeout(() => {
                                 this.loadingService.finishProgress(true);
@@ -75,6 +76,7 @@ export class Interceptor implements HttpInterceptor {
                             });
                             return dialogRef.afterClosed().pipe(switchMap((refreshResponse: any) => {
                                 if (refreshResponse !== null && refreshResponse !== undefined) {
+                                    console.log('Relogin realitzat. Nou token guardat.');
                                     this.saveLocalStorageVariables(refreshResponse.token);
                                     request = request.clone({
                                         setHeaders: {
@@ -83,6 +85,7 @@ export class Interceptor implements HttpInterceptor {
                                     });
                                     this.isRefreshing = false;
                                     this.loadingService.finishProgress(true);
+                                    console.log('Actualitzant la cua de processos pendents...');
                                     this.refreshTokenSubject.next(refreshResponse.access_token);
                                     return this.returnRequest(request, next);
                                 } else {
@@ -109,6 +112,7 @@ export class Interceptor implements HttpInterceptor {
 
 
   handleIsRefreshing(request, next): Observable<HttpEvent<any>> {
+    console.log('Colocació de la petició ' + request.url + ' a la cua.')
     return this.refreshTokenSubject.pipe(
         filter(token => token != null),
         take(1),
